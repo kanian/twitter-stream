@@ -6,7 +6,7 @@ RUN apt-get update -qq \
 	&& apt-get install -y git \
 	&& mkdir /tmp/emitter \
 	&& cd /tmp/emitter \
-	&& git clone "https://github.com/kelindar/twitter-stream.git" "/tmp/emitter" \
+	&& git clone "https://github.com/kanian/twitter-stream.git" "/tmp/emitter" \
 	&& cd /tmp/emitter \
 	&& dotnet restore -v Minimal \
 	&& cd /tmp/emitter/src/Server \
