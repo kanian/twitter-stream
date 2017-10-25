@@ -1,5 +1,5 @@
 FROM microsoft/dotnet:1.0.0-preview2-sdk
-MAINTAINER Roman Atachiants "roman@misakai.com"
+MAINTAINER Patrick Assoa Adou "kanian77@gmail.com"
 
 # Make sure we have S3 & additional libraries
 RUN apt-get update -qq \
