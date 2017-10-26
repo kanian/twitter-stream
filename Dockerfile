@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:sdk AS build-env
+FROM microsoft/dotnet:1.0-sdk AS build-env
 # WORKDIR /app
 
 LABEL Author = "Patrick Assoa Adou"
@@ -15,7 +15,7 @@ RUN dotnet publish -c Release -o out \
     && rm -rf /tmp/emitter
 
 # build runtime image
-FROM microsoft/dotnet:runtime
+FROM microsoft/dotnet:1.0-runtime
 WORKDIR .
 COPY --from=build-env /out ./
 ENTRYPOINT ["dotnet", "twitter-streamer.dll"]
