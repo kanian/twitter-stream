@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+//using System.Net;  
+//using System.Net.Sockets;  
 using Emitter;
 using Newtonsoft.Json;
 using Tweetinvi;
@@ -10,10 +12,36 @@ namespace twitter_streamer
 {
     class Program
     {
+        public static bool PingHost(string _HostURI, int _PortNumber)
+        {
+            /*try
+            {
+                //Tc client = new TcpClient(_HostURI, _PortNumber);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                 Console.WriteLine("Error pinging host:'" + _HostURI + ":" + _PortNumber.ToString() + "'");
+                return false;
+            }*/
+        }
+
         static void Main(string[] args)
         {
-            // Connect to emitter
-            var emitter = Connection.Establish();
+            //if(PingHost("185.27.173.199",8080)){
+                Console.WriteLine("Starting..."); 
+            //} else{
+            //    Console.WriteLine("Can't connect"); 
+            //}
+            
+            // Creating a connection to emitter.io service.
+            //var emitter = Connection.Establish();
+            var emitter    = new Emitter.Connection();
+            var channelKey = "IsQ7z18uGEFpjOJpt4K6ij49klT3PGzu";
+            var topic = "tweet-stream";
+            emitter.Connect();
+            // or
+            //var emitter = Connection.Establish();
 
             // Set up your credentials (https://apps.twitter.com)
             Auth.SetUserCredentials(
@@ -43,8 +71,8 @@ namespace twitter_streamer
                 {
                     // Publish the tweet to the broker
                     /*emitter.Publish(
-                        "IsQ7z18uGEFpjOJpt4K6ij49klT3PGzu",
-                        "tweet-stream",
+                        channelKey,
+                        topic,
                         JsonConvert.SerializeObject(t.Tweet)
                         );*/
                        Console.WriteLine(t.Tweet.CreatedBy+"\n"+t.Tweet.Text); 

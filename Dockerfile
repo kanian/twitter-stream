@@ -1,5 +1,5 @@
-FROM microsoft/dotnet:1.0-sdk AS build-env
-# WORKDIR /app
+FROM microsoft/dotnet
+WORKDIR /app
 
 LABEL Author = "Patrick Assoa Adou"
 LABEL Email = "kanian77@gmail.com"
@@ -11,16 +11,13 @@ RUN  dotnet restore
 # Copy everything else and build
 COPY . ./ 
 
-RUN dotnet publish -c Release -o out \
-    && rm -rf /tmp/emitter
+RUN dotnet publish -c Release -o out
 
-# build runtime image
-FROM microsoft/dotnet:1.0-runtime
-WORKDIR .
-COPY --from=build-env /out ./
-ENTRYPOINT ["dotnet", "twitter-streamer.dll"]
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "out/twitter-streamer.dll"]
 
 # Application will be in app folder
-WORKDIR /out
-ADD deploy.sh /
-CMD ["/bin/bash", "/deploy.sh"]
+
+# ADD deploy.sh /
+# CMD ["/bin/bash", "/deploy.sh"]
